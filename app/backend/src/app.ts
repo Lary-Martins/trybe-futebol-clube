@@ -1,13 +1,19 @@
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
 
 class App {
   public app: express.Express;
-  // ...
+
+  private apiRoutes = {
+    login: '/login',
+    teams: '/teams',
+    matches: '/matches',
+  };
 
   constructor() {
-    // ...
+    this.app = express();
     this.config();
-    // ...
+    this.app.use(bodyParser.json());
   }
 
   private config():void {
@@ -19,12 +25,13 @@ class App {
     };
 
     this.app.use(accessControl);
-    // ...
   }
 
-  // ...
-  public start(PORT: string | number):void {
-    // ...
+  public start(PORT: number):void {
+    this.app.listen(PORT, () => {
+      console.warn('Server online');
+      console.log('Server online');
+    });
   }
 }
 
