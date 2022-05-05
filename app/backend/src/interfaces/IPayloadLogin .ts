@@ -1,4 +1,4 @@
-export interface IPayloadToken {
+export interface IPayloadLogin {
   email: string,
   password: string
 }
