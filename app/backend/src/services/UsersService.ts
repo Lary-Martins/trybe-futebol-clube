@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { compare } from 'bcrypt';
 import { StatusCodes } from 'http-status-codes';
 import signUser from '../jwt/tokenGenerate';
