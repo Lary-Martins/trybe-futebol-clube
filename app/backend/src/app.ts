@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import loginRoute from './routers/loginRouter';
 
 class App {
   public app: express.Express;
@@ -14,6 +15,7 @@ class App {
     this.app = express();
     this.config();
     this.app.use(bodyParser.json());
+    this.routes();
   }
 
   private config():void {
@@ -30,8 +32,11 @@ class App {
   public start(PORT: number):void {
     this.app.listen(PORT, () => {
       console.warn('Server online');
-      console.log('Server online');
     });
+  }
+
+  public routes(): void {
+    this.app.use(this.apiRoutes.login, loginRoute);
   }
 }
 
