@@ -1,4 +1,3 @@
-import { compare } from 'bcrypt';
 import { StatusCodes } from 'http-status-codes';
 import signUser from '../jwt/tokenGenerate';
 import Users from '../database/models/Users';
@@ -8,11 +7,11 @@ class UsersService {
   static async userLogin(payload: IPayloadLogin) {
     try {
       const userData = await Users.findOne({ where: { email: payload.email } });
+      console.log(userData);
       if (!userData) {
         return { data: { message: 'Incorrect email or password' }, code: StatusCodes.UNAUTHORIZED };
       }
-      const validate = await compare(payload.password, userData.password);
-      if (!validate) {
+      if (payload.password !== userData.password) {
         return { data: { message: 'Incorrect email or password' }, code: StatusCodes.UNAUTHORIZED };
       }
       const token = await signUser(payload);
