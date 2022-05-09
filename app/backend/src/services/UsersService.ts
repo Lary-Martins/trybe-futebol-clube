@@ -2,8 +2,9 @@ import { StatusCodes } from 'http-status-codes';
 import signUser from '../jwt/tokenGenerate';
 import { IPayloadLogin } from '../interfaces/IPayloadLogin ';
 import { IUserRepository } from '../interfaces/IUsersRepository';
+import { IUsersService } from '../interfaces/IUsersService';
 
-class UsersService {
+class UsersService implements IUsersService {
   private userRepository: IUserRepository;
 
   constructor(repository: IUserRepository) {
