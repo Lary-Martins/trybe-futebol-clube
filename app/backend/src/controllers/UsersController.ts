@@ -1,13 +1,19 @@
 import { Request, Response } from 'express';
-import UsersService from '../services/UsersService';
+import userFactory from '../factory/userFactory';
 
 class UsersController {
-  static async create(req: Request, res: Response) {
+  private userService = userFactory;
+
+  constructor() {
+    this.login = this.login.bind(this);
+  }
+
+  public async login(req: Request, res: Response) {
     const { email, password } = req.body;
     const payload = { email, password };
 
     try {
-      const response = await UsersService.userLogin(payload);
+      const response = await this.userService.userLogin(payload);
       res.status(response.code).json(response.data);
     } catch (err) {
       const message = err as string;
