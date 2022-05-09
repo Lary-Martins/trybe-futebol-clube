@@ -1,19 +1,22 @@
 import { StatusCodes } from 'http-status-codes';
 import signUser from '../jwt/tokenGenerate';
-import Users from '../database/models/Users';
 import { IPayloadLogin } from '../interfaces/IPayloadLogin ';
+import { IUserRepository } from '../interfaces/IUsersRepository';
 
 class UsersService {
-  static async userLogin(payload: IPayloadLogin) {
+  private userRepository: IUserRepository;
+
+  constructor(repository: IUserRepository) {
+    this.userRepository = repository;
+  }
+
+  async userLogin(payload: IPayloadLogin) {
     try {
-      const userData = await Users.findOne({ where: { email: payload.email } });
-      console.log(userData);
+      const userData = await this.userRepository.findByEmailAndPassword(payload);
       if (!userData) {
         return { data: { message: 'Incorrect email or password' }, code: StatusCodes.UNAUTHORIZED };
       }
-      if (payload.password !== userData.password) {
-        return { data: { message: 'Incorrect email or password' }, code: StatusCodes.UNAUTHORIZED };
-      }
+
       const token = await signUser(payload);
       const response = { user: userData, token };
 
