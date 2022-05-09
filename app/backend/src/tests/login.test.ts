@@ -39,6 +39,5 @@ describe('Teste de integração da rota login', () => {
         'Incorrect email or password',
       );
     });
-    
   });
 });
