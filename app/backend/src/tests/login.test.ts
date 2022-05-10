@@ -39,5 +39,22 @@ describe('Teste de integração da rota login', () => {
         'Incorrect email or password',
       );
     });
+    it('2 - Caso seja passado o "password" errado', async () => {
+      before(async () => {
+        sinon.stub(Users, 'findOne').resolves(userMock as Users);
+      });
+
+      chaiHttpResponse = await chai.request(app).post('/login').send({
+        email: 'admin@admin.com',
+        password: 'senha_errada',
+      });
+
+      expect(chaiHttpResponse.status).to.be.equal(401);
+      expect(chaiHttpResponse.body).to.be.an('object');
+      expect(chaiHttpResponse.body).to.have.property('message');
+      expect(chaiHttpResponse.body.message).to.be.equal(
+        'Incorrect email or password',
+      );
+    });
   });
 });
