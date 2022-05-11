@@ -1,15 +1,15 @@
 import * as fs from 'fs/promises';
 import { verify } from 'jsonwebtoken';
+import { IPayloadLogin } from '../interfaces/IPayloadLogin ';
 
-const validateUser = async (token:string) => {
+const validateToken = async (token:string) => {
   try {
     const SECRET_KEY = await fs.readFile('./jwt.evaluation.key', 'utf-8');
     const response = verify(token, SECRET_KEY);
-    return response;
+    return response as IPayloadLogin;
   } catch (err) {
-    const message = 'Expired or invalid token';
-    return message;
+    return false;
   }
 };
 
-export default validateUser;
+export default validateToken;
