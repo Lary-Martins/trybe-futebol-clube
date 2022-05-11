@@ -4,12 +4,14 @@ import { IUser } from './IUser';
 
 interface IUserReturn {
   code: StatusCodes,
-  data: {
+  data: string | undefined | {
     message?: string,
-    user?: IUser
+    user?: IUser,
     token?: string
   }
 }
+
 export interface IUsersService {
   userLogin(payload: IPayloadLogin): Promise<IUserReturn>
+  validateLogin(token: string): Promise <IUserReturn>
 }
