@@ -13,6 +13,14 @@ const validatePayload = (req: Request, res: Response, next: NextFunction) => {
   if (!checkEmail) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Incorrect email or password' });
   }
+  if (password.length <= 6) {
+    return res.status(StatusCodes.BAD_REQUEST).json(
+      { message: 'Password must be longer than 6 characters' },
+    );
+  }
+  if (email === '' || password === '') {
+    return res.status(StatusCodes.BAD_REQUEST).json({ message: 'All fields must be filled' });
+  }
 
   next();
 };
