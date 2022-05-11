@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import validateToken from '../jwt/tokenValidate';
 import signUser from '../jwt/tokenGenerate';
 import { IPayloadLogin } from '../interfaces/IPayloadLogin ';
 import { IUserRepository } from '../interfaces/IUsersRepository';
@@ -9,6 +10,7 @@ class UsersService implements IUsersService {
 
   constructor(repository: IUserRepository) {
     this.userRepository = repository;
+    this.validateLogin = this.validateLogin.bind(this);
   }
 
   async userLogin(payload: IPayloadLogin) {
@@ -22,6 +24,20 @@ class UsersService implements IUsersService {
       const response = { user: userData, token };
 
       return { data: response, code: StatusCodes.OK };
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
+
+  async validateLogin(token: string) {
+    try {
+      const validationResponse = await validateToken(token);
+      if (validationResponse === false) {
+        return { data: { message: 'Expired or invalid token' }, code: StatusCodes.UNAUTHORIZED };
+      }
+      const userData = await this.userRepository.findByEmailAndPassword(validationResponse);
+      return { data: userData?.role, code: StatusCodes.OK };
     } catch (err) {
       const message = err as string;
       throw new Error(message);
