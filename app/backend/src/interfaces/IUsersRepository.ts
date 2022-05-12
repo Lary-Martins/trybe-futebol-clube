@@ -1,6 +1,5 @@
-import { IPayloadLogin } from './IPayloadLogin ';
-import { IUser } from './IUser';
+import { IUserModel } from './IUser';
 
 export interface IUserRepository {
-  findByEmailAndPassword(body: IPayloadLogin): Promise<IUser | null>
+  findByEmail(body: string): Promise<IUserModel | null>
 }

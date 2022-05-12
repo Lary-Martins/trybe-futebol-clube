@@ -4,3 +4,7 @@ export interface IUser {
   role: string,
   email: string,
 }
+
+export interface IUserModel extends IUser {
+  password: string
+}

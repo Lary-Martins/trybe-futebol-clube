@@ -1,5 +1,4 @@
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
 import loginRoute from './routers/loginRouter';
 
 class App {
@@ -13,8 +12,8 @@ class App {
 
   constructor() {
     this.app = express();
+    this.app.use(express.json());
     this.config();
-    this.app.use(bodyParser.json());
     this.routes();
   }
 

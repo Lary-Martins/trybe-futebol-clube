@@ -1,15 +1,13 @@
 import { IUserRepository } from '../interfaces/IUsersRepository';
 import Users from '../database/models/Users';
-import { IPayloadLogin } from '../interfaces/IPayloadLogin ';
 
 class UsersRepository implements IUserRepository {
   private userModel = Users;
 
-  async findByEmailAndPassword(body: IPayloadLogin) {
+  async findByEmail(body: string) {
     try {
       const data = await this.userModel.findOne(
-        { where: { email: body.email, password: body.password },
-          attributes: ['id', 'username', 'role', 'email'] },
+        { where: { email: body } },
       );
       return data;
     } catch (err) {
