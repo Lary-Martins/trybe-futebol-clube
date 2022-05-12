@@ -1,5 +1,4 @@
 import * as express from 'express';
-import * as cors from 'cors';
 import loginRoute from './routers/loginRouter';
 
 class App {
@@ -14,9 +13,8 @@ class App {
   constructor() {
     this.app = express();
     this.app.use(express.json());
-    this.app.use(cors());
-    this.routes();
     this.config();
+    this.routes();
   }
 
   private config():void {
