@@ -15,8 +15,8 @@ class App {
     this.app = express();
     this.app.use(express.json());
     this.app.use(cors());
-    this.config();
     this.routes();
+    this.config();
   }
 
   private config():void {
