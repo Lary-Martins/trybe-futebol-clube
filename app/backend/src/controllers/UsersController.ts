@@ -27,7 +27,11 @@ class UsersController {
     const token = authorization as string;
     try {
       const response = await this.userService.validateLogin(token);
+<<<<<<< HEAD
       res.status(response.code).json(response.data.role);
+=======
+      res.status(response.code).json(response.data);
+>>>>>>> 29ad169fc568a6ecdea7b9acb935632261c2957d
     } catch (err) {
       const message = err as string;
       throw new Error(message);
