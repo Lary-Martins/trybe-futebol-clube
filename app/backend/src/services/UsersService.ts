@@ -44,8 +44,8 @@ class UsersService implements IUsersService {
       if (validationResponse === false) {
         return { data: { message: 'Expired or invalid token' }, code: StatusCodes.UNAUTHORIZED };
       }
-      const userData = await this.userRepository.findByEmailAndPassword(validationResponse);
-      return { data: userData?.role, code: StatusCodes.OK };
+      const userData = await this.userRepository.findByEmail(validationResponse.email);
+      return { data: { role: userData?.role }, code: StatusCodes.OK };
     } catch (err) {
       const message = err as string;
       throw new Error(message);
