@@ -30,7 +30,7 @@ class App {
 
   public start(PORT: number):void {
     this.app.listen(PORT, () => {
-      console.warn('Server online');
+      console.log(`Server online ${PORT}`);
     });
   }
 
