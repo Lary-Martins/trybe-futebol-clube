@@ -10,6 +10,11 @@ import { IUsersService } from '../interfaces/IUsersService';
 class UsersService implements IUsersService {
   private userRepository: IUserRepository;
 
+  private messages = {
+    incorrect: 'Incorrect email or password',
+    expired: 'Expired or invalid token',
+  };
+
   constructor(repository: IUserRepository) {
     this.userRepository = repository;
     this.validateLogin = this.validateLogin.bind(this);
