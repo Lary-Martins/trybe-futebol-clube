@@ -5,7 +5,7 @@ import { IUser } from './IUser';
 interface IUserReturn {
   code: StatusCodes,
   data: {
-    role?: string | undefined
+    role?: string
     message?: string,
     user?: IUser,
     token?: string
