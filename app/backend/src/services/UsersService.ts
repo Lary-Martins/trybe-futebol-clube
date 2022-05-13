@@ -24,12 +24,12 @@ class UsersService implements IUsersService {
     try {
       const userData = await this.userRepository.findByEmail(payload.email);
       if (!userData) {
-        return { data: { message: 'Incorrect email or password' }, code: StatusCodes.UNAUTHORIZED };
+        return { data: { message: this.messages.incorrect }, code: StatusCodes.UNAUTHORIZED };
       }
 
       const verifyPassword = bcrypt.compareSync(payload.password, userData.password);
       if (!verifyPassword) {
-        return { data: { message: 'Incorrect email or password' }, code: StatusCodes.UNAUTHORIZED };
+        return { data: { message: this.messages.incorrect }, code: StatusCodes.UNAUTHORIZED };
       }
 
       const token = await signUser(payload);
@@ -47,7 +47,7 @@ class UsersService implements IUsersService {
     try {
       const validationResponse = await validateToken(token);
       if (validationResponse === false) {
-        return { data: { message: 'Expired or invalid token' }, code: StatusCodes.UNAUTHORIZED };
+        return { data: { message: this.messages.expired }, code: StatusCodes.UNAUTHORIZED };
       }
       const userData = await this.userRepository.findByEmail(validationResponse.email);
       return { data: { role: userData?.role }, code: StatusCodes.OK };
