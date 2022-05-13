@@ -4,8 +4,7 @@ import { IUser } from './IUser';
 
 interface IUserReturn {
   code: StatusCodes,
-  data: {
-    role?: string
+  data: string | {
     message?: string,
     user?: IUser,
     token?: string
