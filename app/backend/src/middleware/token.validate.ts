@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-const tokenValidate = (req: Request, res: Response, next: NextFunction) => {
+const validateToken = (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -11,4 +11,4 @@ const tokenValidate = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-export default tokenValidate;
+export default validateToken;
