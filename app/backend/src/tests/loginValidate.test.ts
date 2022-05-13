@@ -3,7 +3,6 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Users from '../database/models/Users';
 
 import { Response } from 'superagent';
 
@@ -11,18 +10,12 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const userMock = {
-  id: 1,
-  username: 'Admin',
-  role: 'admin',
-  email: 'admin@admin.com',
-  password: 'senha_certa',
-};
+const tokenMock = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJwYXNzd29yZCI6InNlY3JldF91c2VyIiwiaWF0IjoxNjUyNDY5MzYzLCJleHAiOjE2NTMwNzQxNjN9.5UUX6-ZLIPrivLP-DEmLtsSF0a63G489koTvTrqGEpA`;
 
 
 describe('Teste de integração da rota login/validate', () => {
   let chaiHttpResponse: Response;
-  describe('Verifica o retorno em casos de inputs incorretos', () => {
+  describe('Verifica o retorno em casos de input incorreto', () => {
     it('1 - Caso seja passado um token inválido', async () => {
       chaiHttpResponse =  await chai.request(app).get('/login/validate').set('authorization', 'invalid_token');
 
@@ -43,5 +36,13 @@ describe('Teste de integração da rota login/validate', () => {
         'Token not sent',
       );
     });
+  });
+  describe('Verifica o retorno em casos de input corretos', () => {
+    it('1 - Caso seja passado um token válido', async () => {
+      chaiHttpResponse =  await chai.request(app).get('/login/validate').set('authorization', tokenMock);
+
+      expect(chaiHttpResponse.status).to.be.equal(200);
+      expect(chaiHttpResponse.body).to.be.equal('user');
+    })
   });
 });
