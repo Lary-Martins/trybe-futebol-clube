@@ -33,5 +33,15 @@ describe('Teste de integração da rota login/validate', () => {
         'Expired or invalid token',
       );
     });
+    it('2 - Caso NÃO seja passado um token', async () => {
+      chaiHttpResponse =  await chai.request(app).get('/login/validate').set('authorization', '');
+
+      expect(chaiHttpResponse.status).to.be.equal(400);
+      expect(chaiHttpResponse.body).to.be.an('object');
+      expect(chaiHttpResponse.body).to.have.property('message');
+      expect(chaiHttpResponse.body.message).to.be.equal(
+        'Token not sent',
+      );
+    });
   });
 });
