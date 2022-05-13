@@ -49,8 +49,13 @@ class UsersService implements IUsersService {
       if (validationResponse === false) {
         return { data: { message: this.messages.expired }, code: StatusCodes.UNAUTHORIZED };
       }
+
       const userData = await this.userRepository.findByEmail(validationResponse.email);
-      return { data: { role: userData?.role }, code: StatusCodes.OK };
+      if (!userData) {
+        return { data: { message: this.messages.incorrect }, code: StatusCodes.UNAUTHORIZED };
+      }
+
+      return { data: { role: userData.role }, code: StatusCodes.OK };
     } catch (err) {
       const message = err as string;
       throw new Error(message);
