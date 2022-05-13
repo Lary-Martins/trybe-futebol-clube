@@ -27,7 +27,7 @@ class UsersController {
     const token = authorization as string;
     try {
       const response = await this.userService.validateLogin(token);
-      res.status(response.code).json(response.data.role);
+      res.status(response.code).json(response.data);
     } catch (err) {
       const message = err as string;
       throw new Error(message);
