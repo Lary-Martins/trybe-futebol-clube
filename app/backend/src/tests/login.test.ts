@@ -16,7 +16,7 @@ const userMock = {
   username: 'Admin',
   role: 'admin',
   email: 'admin@admin.com',
-  password: 'senha_certa',
+  password: 'secret_admin',
 };
 
 describe('Teste de integração da rota login', () => {
@@ -29,7 +29,7 @@ describe('Teste de integração da rota login', () => {
 
       chaiHttpResponse = await chai.request(app).post('/login').send({
         email: 'noAdmin@noAdmin.com',
-        password: 'senha_certa',
+        password: 'secret_admin',
       });
 
       expect(chaiHttpResponse.status).to.be.equal(401);
@@ -63,7 +63,7 @@ describe('Teste de integração da rota login', () => {
 
       chaiHttpResponse = await chai.request(app).post('/login').send({
         email: '',
-        password: 'senha_errada',
+        password: 'secret_admin',
       });
 
       expect(chaiHttpResponse.status).to.be.equal(400);
@@ -90,5 +90,30 @@ describe('Teste de integração da rota login', () => {
         'All fields must be filled',
       );
     });
+  });
+  describe('Verifica o retorno em caso de inputs corretos', () => {
+    it('1 - Caso os seja passado o email e password corretamente', async () => {
+      const userMockCorrect = {
+        id: 1,
+        username: 'Admin',
+        role: 'admin',
+        email: 'admin@admin.com',
+        password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
+      };
+
+      before(async () => {
+        sinon.stub(Users , 'findOne').resolves(userMockCorrect as Users);
+      });
+
+      chaiHttpResponse = await chai.request(app).post('/login').send({
+        email: 'admin@admin.com',
+        password: 'secret_admin'
+      });
+
+      expect(chaiHttpResponse.status).to.be.equal(200);
+      expect(chaiHttpResponse.body).to.be.an('object');
+      expect(chaiHttpResponse.body).to.have.property('user');
+      expect(chaiHttpResponse.body).to.have.property('token');
+    })
   });
 });
