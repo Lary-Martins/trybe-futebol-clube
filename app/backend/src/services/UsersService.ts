@@ -55,7 +55,7 @@ class UsersService implements IUsersService {
         return { data: { message: this.messages.expired }, code: StatusCodes.UNAUTHORIZED };
       }
 
-      return { data: { role: userData.role }, code: StatusCodes.OK };
+      return { data: userData.role, code: StatusCodes.OK };
     } catch (err) {
       const message = err as string;
       throw new Error(message);
