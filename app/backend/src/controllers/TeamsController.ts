@@ -6,6 +6,7 @@ class TeamsController {
 
   constructor() {
     this.getAllTeams = this.getAllTeams.bind(this);
+    this.getTeamById = this.getTeamById.bind(this);
   }
 
   async getAllTeams(_req: Request, res: Response) {
@@ -18,6 +19,14 @@ class TeamsController {
       throw new Error(message);
     }
   }
+
+  async getTeamById(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const response = await this.teamsService.getTeamsById(id);
+
+      res.status(response.code).json(response.data);
     } catch (err) {
       const message = err as string;
       throw new Error(message);
