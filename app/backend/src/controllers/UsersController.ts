@@ -9,7 +9,7 @@ class UsersController {
     this.loginValidate = this.loginValidate.bind(this);
   }
 
-  public async login(req: Request, res: Response) {
+  async login(req: Request, res: Response) {
     const { email, password } = req.body;
     const payload = { email, password };
 
@@ -22,7 +22,7 @@ class UsersController {
     }
   }
 
-  public async loginValidate(req: Request, res: Response) {
+  async loginValidate(req: Request, res: Response) {
     const { authorization } = req.headers;
     const token = authorization as string;
     try {
