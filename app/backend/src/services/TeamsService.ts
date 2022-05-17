@@ -33,6 +33,20 @@ class TeamsService implements ITeamsService {
       throw new Error(message);
     }
   }
+
+  async getTeamById(id: string) {
+    try {
+      const teamData = await this.teamsRepository.findTeamById(id);
+      if (!teamData) {
+        return { code: StatusCodes.NOT_FOUND, data: { message: 'Team not found' } };
+      }
+
+      return { code: StatusCodes.OK, data: { team: teamData } };
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
 }
 
 export default TeamsService;
