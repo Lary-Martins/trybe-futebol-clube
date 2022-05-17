@@ -12,7 +12,12 @@ class TeamsController {
     try {
       const response = await this.teamsService.getAllTeams();
 
-      res.status(response.code).json(response.data.team);
+      res.status(response.code).json(response.data);
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
     } catch (err) {
       const message = err as string;
       throw new Error(message);
