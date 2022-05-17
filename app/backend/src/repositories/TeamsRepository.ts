@@ -13,6 +13,16 @@ class TeamsRepository implements ITeamsRepository {
       throw new Error(message);
     }
   }
+
+  async findTeamById(id: number) {
+    try {
+      const data = await this.teamsModel.findByPk(id);
+      return data;
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
 }
 
 export default TeamsRepository;
