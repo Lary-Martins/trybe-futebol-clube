@@ -13,7 +13,12 @@ class TeamsService implements ITeamsService {
     try {
       const teamsData = await this.teamsRepository.findAllTeams();
 
-      return { code: StatusCodes.OK, data: { team: teamsData } };
+      return { code: StatusCodes.OK, data: teamsData };
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
     } catch (err) {
       const message = err as string;
       throw new Error(message);
