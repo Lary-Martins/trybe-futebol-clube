@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { IPayloadLogin } from './IPayloadLogin ';
+import { IPayloadLogin } from '../payloadInterfaces/IPayloadLogin ';
 import { IUser } from './IUser';
 
 interface IUserReturn {
