@@ -1,4 +1,4 @@
-import { IUser, IUserModel } from '../interfaces/IUser';
+import { IUser, IUserModel } from '../interfaces/usersInterfaces/IUser';
 
 export default (data: IUserModel): IUser => {
   const newObject = {

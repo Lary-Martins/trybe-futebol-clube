@@ -1,6 +1,6 @@
 import * as fs from 'fs/promises';
 import { sign } from 'jsonwebtoken';
-import { IPayloadLogin } from '../interfaces/IPayloadLogin ';
+import { IPayloadLogin } from '../interfaces/payloadInterfaces/IPayloadLogin ';
 
 const signUser = async (payload:IPayloadLogin, duration = '7d'): Promise<string> => {
   const SECRET_KEY = await fs.readFile('./jwt.evaluation.key', 'utf-8');

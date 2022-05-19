@@ -1,4 +1,4 @@
-import { IUserRepository } from '../interfaces/IUsersRepository';
+import { IUserRepository } from '../interfaces/usersInterfaces/IUsersRepository';
 import Users from '../database/models/Users';
 
 class UsersRepository implements IUserRepository {

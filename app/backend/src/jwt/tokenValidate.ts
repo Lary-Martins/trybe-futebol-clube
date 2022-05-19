@@ -1,6 +1,6 @@
 import * as fs from 'fs/promises';
 import { verify } from 'jsonwebtoken';
-import { IPayloadLogin } from '../interfaces/IPayloadLogin ';
+import { IPayloadLogin } from '../interfaces/payloadInterfaces/IPayloadLogin ';
 
 const validateToken = async (token:string) => {
   try {

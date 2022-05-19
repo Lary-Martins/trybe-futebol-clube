@@ -3,9 +3,9 @@ import * as bcrypt from 'bcrypt';
 import removePassword from '../utils/removePassword';
 import validateToken from '../jwt/tokenValidate';
 import signUser from '../jwt/tokenGenerate';
-import { IPayloadLogin } from '../interfaces/IPayloadLogin ';
-import { IUserRepository } from '../interfaces/IUsersRepository';
-import { IUsersService } from '../interfaces/IUsersService';
+import { IPayloadLogin } from '../interfaces/payloadInterfaces/IPayloadLogin ';
+import { IUserRepository } from '../interfaces/usersInterfaces/IUsersRepository';
+import { IUsersService } from '../interfaces/usersInterfaces/IUsersService';
 
 class UsersService implements IUsersService {
   private userRepository: IUserRepository;

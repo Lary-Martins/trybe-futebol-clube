@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
-import { ITeamsService } from '../interfaces/ITeamsService';
-import { ITeamsRepository } from '../interfaces/ITeamsRepository';
+import { ITeamsService } from '../interfaces/teamsInterfaces/ITeamsService';
+import { ITeamsRepository } from '../interfaces/teamsInterfaces/ITeamsRepository';
 
 class TeamsService implements ITeamsService {
   private teamsRepository: ITeamsRepository;

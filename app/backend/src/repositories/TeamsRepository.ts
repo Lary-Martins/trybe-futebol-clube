@@ -1,4 +1,4 @@
-import { ITeamsRepository } from '../interfaces/ITeamsRepository';
+import { ITeamsRepository } from '../interfaces/teamsInterfaces/ITeamsRepository';
 import Teams from '../database/models/Teams';
 
 class TeamsRepository implements ITeamsRepository {
