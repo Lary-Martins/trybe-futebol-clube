@@ -9,8 +9,8 @@ class MatchesRepository implements IMatchesRepository {
     try {
       const data = await this.MatchesModel.findAll(
         { include: [
-          { model: Teams, as: 'homeMatches', attributes: { exclude: ['id'] } },
-          { model: Teams, as: 'awayMatches', attributes: { exclude: ['id'] } },
+          { model: Teams, as: 'teamHome', attributes: { exclude: ['id'] } },
+          { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
         ] },
       );
       console.log(data);
