@@ -13,7 +13,6 @@ class MatchesRepository implements IMatchesRepository {
           { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
         ] },
       );
-      console.log(data);
       return data;
     } catch (err) {
       const message = err as string;
