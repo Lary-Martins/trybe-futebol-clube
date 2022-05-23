@@ -3,7 +3,7 @@ export interface IMatcheRequest {
   awayTeam: number,
   homeTeamGoals: number,
   awayTeamGoals: number,
-  inProgress?: boolean
+  inProgress: boolean
 }
 
 export interface IMatcheResponse extends IMatcheRequest {
