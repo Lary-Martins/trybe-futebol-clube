@@ -52,7 +52,7 @@ class MatchesRepository implements IMatchesRepository {
     try {
       const data = await this.MatchesModel.update(
         { homeTeamGoals, awayTeamGoals },
-        { where: { id } },
+        { where: { id, inProgress: true } },
       );
       return data;
     } catch (err) {
