@@ -50,6 +50,21 @@ class MatchesController {
       throw new Error(message);
     }
   }
+
+  async patchMatchGoals(req: Request, res: Response) {
+    const { id } = req.params;
+    const { awayTeamGoals, homeTeamGoals } = req.body;
+    try {
+      const response = await this.matchesService.patchMatchGoals(
+        { awayTeamGoals, homeTeamGoals },
+        +id,
+      );
+      res.status(response.code).json(response.data);
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
 }
 
 export default MatchesController;
