@@ -16,4 +16,5 @@ interface IMatchesReturn {
 export interface IMatchesService {
   getAllMatches(): Promise<IMatchesReturn>;
   postNewMatche(body: IMatcheRequest): Promise<IMatchesReturn>
+  patchProgressMatche(id: number): Promise<IMatchesReturn>
 }
