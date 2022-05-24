@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import Matches from '../../database/models/Matches';
-import { IMatchRequest, IMatchResponse } from './IMatch';
+import { IMatchRequest, IMatchResponse, ITeamsGoals } from './IMatch';
 
 interface IMatchesReturn {
   code: StatusCodes;
@@ -17,4 +17,5 @@ export interface IMatchesService {
   getAllMatches(): Promise<IMatchesReturn>;
   postNewMatch(body: IMatchRequest): Promise<IMatchesReturn>
   patchMatchProgress(id: number): Promise<IMatchesReturn>
+  patchMatchGoals(teamGoals: ITeamsGoals, id: number): Promise<IMatchesReturn>
 }
