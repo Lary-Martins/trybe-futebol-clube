@@ -40,6 +40,18 @@ class MatchesService implements IMatchesService {
       throw new Error(message);
     }
   }
+
+  async patchProgressMatche(id: number) {
+    try {
+      const updated = await this.matchesRepository.updateProgressMatche(id);
+      if (updated) return { code: StatusCodes.NOT_FOUND, data: { message: 'Matche not found' } };
+
+      return { code: StatusCodes.OK, data: { message: 'Finished' } };
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
 }
 
 export default MatchesService;
