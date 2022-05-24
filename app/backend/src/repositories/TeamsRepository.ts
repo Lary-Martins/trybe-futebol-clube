@@ -14,7 +14,7 @@ class TeamsRepository implements ITeamsRepository {
     }
   }
 
-  async findTeamById(id: string) {
+  async findTeamById(id: number) {
     try {
       const data = await this.teamsModel.findByPk(id);
       return data;
