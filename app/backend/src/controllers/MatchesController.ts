@@ -37,6 +37,18 @@ class MatchesController {
       throw new Error(message);
     }
   }
+
+  async patchProgressMatche(req: Request, res: Response) {
+    const { id } = req.params;
+    try {
+      const response = await this.matchesService.patchProgressMatche(+id);
+
+      res.status(response.code).json(response.data);
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
 }
 
 export default MatchesController;
