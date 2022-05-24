@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import validadeMatcheBody from '../middleware/matche.validade';
+import validadeMatchBody from '../middleware/match.validade';
 import MatchesController from '../controllers/MatchesController';
 
 const matchesController = new MatchesController();
 const matchesRouter = Router();
 
 matchesRouter.get('/', matchesController.getAllMatches);
-matchesRouter.post('/', validadeMatcheBody, matchesController.postNewMatche);
-matchesRouter.patch('/:id/finish', matchesController.patchProgressMatche);
+matchesRouter.post('/', validadeMatchBody, matchesController.postNewMatch);
+matchesRouter.patch('/:id/finish', matchesController.patchMatchProgress);
 
 export default matchesRouter;

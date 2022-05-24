@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { IMatchesService } from '../interfaces/matchesInterfaces/IMatchesServices';
 import { IMatchesRepository } from '../interfaces/matchesInterfaces/IMatchesRepository';
-import { IMatcheRequest } from '../interfaces/matchesInterfaces/IMatche';
+import { IMatchRequest } from '../interfaces/matchesInterfaces/IMatch';
 import { ITeamsRepository } from '../interfaces/teamsInterfaces/ITeamsRepository';
 
 class MatchesService implements IMatchesService {
@@ -21,7 +21,7 @@ class MatchesService implements IMatchesService {
     }
   }
 
-  async postNewMatche(body: IMatcheRequest) {
+  async postNewMatch(body: IMatchRequest) {
     try {
       const teamHomeExist = await this.teamsRepository.findTeamById(body.homeTeam);
       const teamAwayExist = await this.teamsRepository.findTeamById(body.awayTeam);
@@ -31,7 +31,7 @@ class MatchesService implements IMatchesService {
           data: { message: 'There is no team with such id!' } };
       }
 
-      const { id } = await this.matchesRepository.createNewMatche(body);
+      const { id } = await this.matchesRepository.createNewMatch(body);
 
       const newMatche = { id, ...body };
       return { code: StatusCodes.CREATED, data: newMatche };
@@ -41,9 +41,9 @@ class MatchesService implements IMatchesService {
     }
   }
 
-  async patchProgressMatche(id: number) {
+  async patchMatchProgress(id: number) {
     try {
-      const updated = await this.matchesRepository.updateProgressMatche(id);
+      const updated = await this.matchesRepository.updateMatchProgress(id);
       if (updated[0] === 0) {
         return { code: StatusCodes.NOT_FOUND,
           data: { message: 'Matche not found' } };

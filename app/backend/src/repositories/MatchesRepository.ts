@@ -2,9 +2,9 @@ import { IMatchesRepository } from '../interfaces/matchesInterfaces/IMatchesRepo
 import Matches from '../database/models/Matches';
 import Teams from '../database/models/Teams';
 import {
-  IMatcheRequest,
+  IMatchRequest,
   ITeamsGoals,
-} from '../interfaces/matchesInterfaces/IMatche';
+} from '../interfaces/matchesInterfaces/IMatch';
 
 class MatchesRepository implements IMatchesRepository {
   private MatchesModel = Matches;
@@ -24,7 +24,7 @@ class MatchesRepository implements IMatchesRepository {
     }
   }
 
-  async createNewMatch(body: IMatcheRequest) {
+  async createNewMatch(body: IMatchRequest) {
     try {
       const data = await this.MatchesModel.create(body);
       return data;

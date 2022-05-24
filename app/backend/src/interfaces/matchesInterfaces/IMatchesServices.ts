@@ -1,13 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
 import Matches from '../../database/models/Matches';
-import { IMatcheRequest, IMatcheResponse } from './IMatche';
+import { IMatchRequest, IMatchResponse } from './IMatch';
 
 interface IMatchesReturn {
   code: StatusCodes;
   data:
   | Matches
   | Matches[]
-  | IMatcheResponse
+  | IMatchResponse
   | {
     message: string;
   };
@@ -15,6 +15,6 @@ interface IMatchesReturn {
 
 export interface IMatchesService {
   getAllMatches(): Promise<IMatchesReturn>;
-  postNewMatche(body: IMatcheRequest): Promise<IMatchesReturn>
-  patchProgressMatche(id: number): Promise<IMatchesReturn>
+  postNewMatch(body: IMatchRequest): Promise<IMatchesReturn>
+  patchMatchProgress(id: number): Promise<IMatchesReturn>
 }

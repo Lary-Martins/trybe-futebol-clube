@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-const validadeMatcheBody = (
+const validadeMatchBody = (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -18,4 +18,4 @@ const validadeMatcheBody = (
 
   next();
 };
-export default validadeMatcheBody;
+export default validadeMatchBody;

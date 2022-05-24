@@ -1,4 +1,4 @@
-export interface IMatcheRequest {
+export interface IMatchRequest {
   homeTeam: number,
   awayTeam: number,
   homeTeamGoals: number,
@@ -6,7 +6,7 @@ export interface IMatcheRequest {
   inProgress: boolean
 }
 
-export interface IMatcheResponse extends IMatcheRequest {
+export interface IMatchResponse extends IMatchRequest {
   id: number
 }
 

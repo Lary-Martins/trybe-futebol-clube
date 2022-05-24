@@ -6,8 +6,8 @@ class MatchesController {
 
   constructor() {
     this.getAllMatches = this.getAllMatches.bind(this);
-    this.postNewMatche = this.postNewMatche.bind(this);
-    this.patchProgressMatche = this.patchProgressMatche.bind(this);
+    this.postNewMatch = this.postNewMatch.bind(this);
+    this.patchMatchProgress = this.patchMatchProgress.bind(this);
   }
 
   async getAllMatches(_req: Request, res: Response) {
@@ -21,10 +21,10 @@ class MatchesController {
     }
   }
 
-  async postNewMatche(req: Request, res: Response) {
+  async postNewMatch(req: Request, res: Response) {
     const { awayTeam, homeTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
     try {
-      const response = await this.matchesService.postNewMatche({
+      const response = await this.matchesService.postNewMatch({
         awayTeam,
         homeTeam,
         homeTeamGoals,
@@ -39,10 +39,10 @@ class MatchesController {
     }
   }
 
-  async patchProgressMatche(req: Request, res: Response) {
+  async patchMatchProgress(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const response = await this.matchesService.patchProgressMatche(+id);
+      const response = await this.matchesService.patchMatchProgress(+id);
 
       res.status(response.code).json(response.data);
     } catch (err) {
