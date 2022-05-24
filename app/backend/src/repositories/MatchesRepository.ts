@@ -30,6 +30,16 @@ class MatchesRepository implements IMatchesRepository {
       throw new Error(message);
     }
   }
+
+  async updateProgressMatche(id: number) {
+    try {
+      const data = await this.MatchesModel.update({ inProgress: false }, { where: { id } });
+      return data;
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
 }
 
 export default MatchesRepository;
