@@ -7,6 +7,7 @@ class MatchesController {
   constructor() {
     this.getAllMatches = this.getAllMatches.bind(this);
     this.postNewMatche = this.postNewMatche.bind(this);
+    this.patchProgressMatche = this.patchProgressMatche.bind(this);
   }
 
   async getAllMatches(_req: Request, res: Response) {
