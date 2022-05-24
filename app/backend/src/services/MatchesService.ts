@@ -2,13 +2,13 @@ import { StatusCodes } from 'http-status-codes';
 import { IMatchesService } from '../interfaces/matchesInterfaces/IMatchesServices';
 import { IMatchesRepository } from '../interfaces/matchesInterfaces/IMatchesRepository';
 import { IMatcheRequest } from '../interfaces/matchesInterfaces/IMatche';
+import { ITeamsRepository } from '../interfaces/teamsInterfaces/ITeamsRepository';
 
 class MatchesService implements IMatchesService {
-  private matchesRepository: IMatchesRepository;
-
-  constructor(repository: IMatchesRepository) {
-    this.matchesRepository = repository;
-  }
+  constructor(
+    private matchesRepository: IMatchesRepository,
+    private teamsRepository: ITeamsRepository,
+  ) {}
 
   async getAllMatches() {
     try {
@@ -22,12 +22,19 @@ class MatchesService implements IMatchesService {
   }
 
   async postNewMatche(body: IMatcheRequest) {
-    const matchBody = { inProgress: true, ...body };
     try {
-      const { id } = await this.matchesRepository.createNewMatche(matchBody);
+      const teamHomeExist = await this.teamsRepository.findTeamById(body.homeTeam);
+      const teamAwayExist = await this.teamsRepository.findTeamById(body.awayTeam);
+
+      if (!teamAwayExist || !teamHomeExist) {
+        return { code: StatusCodes.NOT_FOUND,
+          data: { message: 'There is no team with such id!' } };
+      }
+
+      const { id } = await this.matchesRepository.createNewMatche(body);
 
       const newMatche = { id, ...body };
-      return { code: StatusCodes.OK, data: newMatche };
+      return { code: StatusCodes.CREATED, data: newMatche };
     } catch (err) {
       const message = err as string;
       throw new Error(message);
