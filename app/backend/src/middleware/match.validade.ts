@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-const validadeMatchBody = (
+export const validadeMatchBody = (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -18,4 +18,21 @@ const validadeMatchBody = (
 
   next();
 };
-export default validadeMatchBody;
+
+export const validadeTeamGoals = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { awayTeamGoals, homeTeamGoals } = req.body;
+
+  if (typeof awayTeamGoals !== 'number' || typeof homeTeamGoals !== 'number') {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({
+        message: 'Properties must be of type number',
+      });
+  }
+
+  next();
+};
