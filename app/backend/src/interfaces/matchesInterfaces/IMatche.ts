@@ -9,3 +9,8 @@ export interface IMatcheRequest {
 export interface IMatcheResponse extends IMatcheRequest {
   id: number
 }
+
+export interface ITeamsGoals {
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+}
