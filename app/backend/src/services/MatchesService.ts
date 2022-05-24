@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { IMatchesService } from '../interfaces/matchesInterfaces/IMatchesServices';
 import { IMatchesRepository } from '../interfaces/matchesInterfaces/IMatchesRepository';
-import { IMatchRequest } from '../interfaces/matchesInterfaces/IMatch';
+import { IMatchRequest, ITeamsGoals } from '../interfaces/matchesInterfaces/IMatch';
 import { ITeamsRepository } from '../interfaces/teamsInterfaces/ITeamsRepository';
 
 class MatchesService implements IMatchesService {
@@ -32,8 +32,8 @@ class MatchesService implements IMatchesService {
       }
 
       const { id } = await this.matchesRepository.createNewMatch(body);
-
       const newMatche = { id, ...body };
+
       return { code: StatusCodes.CREATED, data: newMatche };
     } catch (err) {
       const message = err as string;
@@ -44,12 +44,29 @@ class MatchesService implements IMatchesService {
   async patchMatchProgress(id: number) {
     try {
       const updated = await this.matchesRepository.updateMatchProgress(id);
+
       if (updated[0] === 0) {
         return { code: StatusCodes.NOT_FOUND,
           data: { message: 'Matche not found' } };
       }
 
       return { code: StatusCodes.OK, data: { message: 'Finished' } };
+    } catch (err) {
+      const message = err as string;
+      throw new Error(message);
+    }
+  }
+
+  async patchMatchGoals(teamGoals: ITeamsGoals, id: number) {
+    try {
+      const updated = await this.matchesRepository.updateMatchGoals(teamGoals, id);
+
+      if (updated[0] === 0) {
+        return { code: StatusCodes.NOT_FOUND,
+          data: { message: 'Matche not found' } };
+      }
+
+      return { code: StatusCodes.OK, data: { message: 'Updated score' } };
     } catch (err) {
       const message = err as string;
       throw new Error(message);
