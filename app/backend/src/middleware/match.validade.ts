@@ -26,7 +26,7 @@ export const validadeTeamGoals = (
 ) => {
   const { awayTeamGoals, homeTeamGoals } = req.body;
 
-  if (typeof awayTeamGoals !== 'number' || typeof homeTeamGoals !== 'number') {
+  if (Number.isNaN(awayTeamGoals) || Number.isNaN(homeTeamGoals)) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({
