@@ -53,12 +53,14 @@ class MatchesController {
   }
 
   async patchMatchGoals(req: Request, res: Response) {
+    const { authorization } = req.headers;
     const { id } = req.params;
-    const { awayTeamGoals, homeTeamGoals } = req.body;
+    const { awayTeamGoals, homeTeamGoals, inProgress } = req.body;
     try {
       const response = await this.matchesService.patchMatchGoals(
-        { awayTeamGoals, homeTeamGoals },
+        { awayTeamGoals, homeTeamGoals, inProgress },
         +id,
+        authorization as string,
       );
       res.status(response.code).json(response.data);
     } catch (err) {
