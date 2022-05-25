@@ -60,7 +60,7 @@ class LeaderboardsController {
       const sla = { name: team.name,
         totalPoints: team.totalPoints + data[i].totalPoints,
         totalGames: team.totalGames + data[i].totalGames,
-        totalVictories: team.totalVictories + data[0].totalVictories,
+        totalVictories: team.totalVictories + data[i].totalVictories,
         totalDraws: team.totalDraws + data[i].totalDraws,
         totalLosses: team.totalLosses + data[i].totalLosses,
         goalsFavor: team.goalsFavor + data[i].goalsFavor,
