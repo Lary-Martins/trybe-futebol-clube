@@ -6,6 +6,7 @@ class LeaderboardsController {
 
   constructor() {
     this.getLeaderboardHome = this.getLeaderboardHome.bind(this);
+    this.getLeaderboardAway = this.getLeaderboardAway.bind(this);
   }
 
   async getLeaderboardHome(_req: Request, res: Response) {
