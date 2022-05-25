@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import validateToken from '../jwt/tokenValidate';
 import { IMatchesService } from '../interfaces/matchesInterfaces/IMatchesServices';
 import { IMatchesRepository } from '../interfaces/matchesInterfaces/IMatchesRepository';
 import { IMatchRequest, ITeamsGoals } from '../interfaces/matchesInterfaces/IMatch';
@@ -47,7 +48,7 @@ class MatchesService implements IMatchesService {
 
       if (updated[0] === 0) {
         return { code: StatusCodes.NOT_FOUND,
-          data: { message: 'Matche not found' } };
+          data: { message: 'Match not found' } };
       }
 
       return { code: StatusCodes.OK, data: { message: 'Finished' } };
@@ -57,13 +58,17 @@ class MatchesService implements IMatchesService {
     }
   }
 
-  async patchMatchGoals(teamGoals: ITeamsGoals, id: number) {
+  async patchMatchGoals(teamGoals: ITeamsGoals, id: number, token: string) {
     try {
-      const updated = await this.matchesRepository.updateMatchGoals(teamGoals, id);
+      const tokenValidate = await validateToken(token);
+      if (!tokenValidate) {
+        return { data: { message: 'Expired or invalid token' }, code: StatusCodes.UNAUTHORIZED };
+      }
 
+      const updated = await this.matchesRepository.updateMatchGoals(teamGoals, id);
       if (updated[0] === 0) {
         return { code: StatusCodes.NOT_FOUND,
-          data: { message: 'Matche not found' } };
+          data: { message: 'Match not found' } };
       }
 
       return { code: StatusCodes.OK, data: { message: 'Updated score' } };
