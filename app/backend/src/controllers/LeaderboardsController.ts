@@ -1,6 +1,5 @@
-/* eslint-disable max-lines-per-function */
 import { Request, Response } from 'express';
-// import ordenar from '../utils/ordenar';
+import { ordenar, ordenarNome } from '../utils/ordenar';
 import leaderboardFactory from '../factory/leaderboardFactory';
 
 class LeaderboardsController {
@@ -35,28 +34,11 @@ class LeaderboardsController {
   }
 
   async getLeaderboard(_req: Request, res: Response) {
-    const away = await this.leaderboardService.getLeadboard('awayTeam');
-    away.data.sort((a, b) => {
-      if (a.name < b.name) {
-        return -1;
-      } if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
-    });
+    const away = ordenarNome((await this.leaderboardService.getLeadboard('awayTeam')).data);
 
-    const { data } = await this.leaderboardService.getLeadboard('homeTeam');
-    // eslint-disable-next-line sonarjs/no-identical-functions
-    data.sort((a, b) => {
-      if (a.name < b.name) {
-        return -1;
-      } if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
-    });
+    const data = ordenarNome((await this.leaderboardService.getLeadboard('homeTeam')).data);
 
-    const response = away.data.map((team, i) => {
+    const response = away.map((team, i) => {
       const sla = { name: team.name,
         totalPoints: team.totalPoints + data[i].totalPoints,
         totalGames: team.totalGames + data[i].totalGames,
@@ -70,15 +52,8 @@ class LeaderboardsController {
           (((team.totalVictories + data[i].totalVictories) * 3
          + (data[i].totalDraws + team.totalDraws))
           / ((team.totalGames + data[i].totalGames) * 3)) * 100).toFixed(2),
-      };
-      return sla;
-    });
-    response.sort((a, b) => a.goalsOwn - b.goalsOwn)
-      .sort((a, b) => b.goalsFavor - a.goalsFavor)
-      .sort((a, b) => b.goalsBalance - a.goalsBalance)
-      .sort((a, b) => b.totalVictories - a.totalVictories)
-      .sort((a, b) => b.totalPoints - a.totalPoints);
-    res.status(away.code).json(response);
+      }; return sla;
+    }); res.status(200).json(ordenar(response));
   }
 }
 
