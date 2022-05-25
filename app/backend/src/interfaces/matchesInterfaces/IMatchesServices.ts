@@ -17,5 +17,5 @@ export interface IMatchesService {
   getAllMatches(): Promise<IMatchesReturn>;
   postNewMatch(body: IMatchRequest): Promise<IMatchesReturn>
   patchMatchProgress(id: number): Promise<IMatchesReturn>
-  patchMatchGoals(teamGoals: ITeamsGoals, id: number): Promise<IMatchesReturn>
+  patchMatchGoals(teamGoals: ITeamsGoals, id: number, token: string): Promise<IMatchesReturn>
 }

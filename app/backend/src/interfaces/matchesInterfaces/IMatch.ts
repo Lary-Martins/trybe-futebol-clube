@@ -7,10 +7,11 @@ export interface IMatchRequest {
 }
 
 export interface IMatchResponse extends IMatchRequest {
-  id: number
+  id?: number
 }
 
 export interface ITeamsGoals {
   homeTeamGoals: number,
   awayTeamGoals: number,
+  inProgress: boolean
 }
