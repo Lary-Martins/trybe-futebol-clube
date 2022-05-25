@@ -48,11 +48,11 @@ class MatchesRepository implements IMatchesRepository {
   }
 
   async updateMatchGoals(teamGoals: ITeamsGoals, id: number) {
-    const { homeTeamGoals, awayTeamGoals } = teamGoals;
+    const { homeTeamGoals, awayTeamGoals, inProgress } = teamGoals;
     try {
       const data = await this.MatchesModel.update(
-        { homeTeamGoals, awayTeamGoals },
-        { where: { id, inProgress: true } },
+        { homeTeamGoals, awayTeamGoals, inProgress },
+        { where: { id } },
       );
       return data;
     } catch (err) {
